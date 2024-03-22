@@ -25,7 +25,7 @@ int main() {
 		a[i] = i;
 	}
 	clock_t start, end;
-	//平凡算法矩阵与向量内积
+	//优化算法矩阵与向量内积
 	start = clock();
 	for (int i = 0;i < k;i++)
 	{
