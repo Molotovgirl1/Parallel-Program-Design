@@ -1,4 +1,5 @@
 #include<iostream>
+#include<Windows.h>
 using namespace std;
 int main() {
 	int n;
@@ -24,9 +25,12 @@ int main() {
 	for (int i = 0;i < n;i++) {
 		a[i] = i;
 	}
-	clock_t start, end;
+	long long head, tail, freq; //timers
+	//similar to CLOCKS_PER_SEC
+	QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
+	//start time
+	QueryPerformanceCounter((LARGE_INTEGER*)&head);
 	//平凡算法矩阵与向量内积
-	start = clock();
 	for (int i = 0;i < k;i++)
 	{
 		for (int cnt = 0;cnt < n;cnt++) {
@@ -41,10 +45,9 @@ int main() {
 			cout << sum[p] << endl;
 		}*/
 	}
-	end = clock();
-	float seconds = (end - start) / float(CLOCKS_PER_SEC);
-	cout << "总时间为：" << seconds << endl;
-	cout << "平均时间为:" << seconds / k << endl;
+	QueryPerformanceCounter((LARGE_INTEGER*)&tail);
+	cout << "总时间为：" << (tail - head) * 1000.0 / freq << "ms" << endl;
+	cout << "平均时间为:" << (tail - head) * 1000.0 / freq / k << "ms" << endl;
 	//释放内存
 	delete[]a;
 	for (int i = 0;i < n;i++) {
