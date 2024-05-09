@@ -126,7 +126,7 @@ int main() {
 		QueryPerformanceCounter((LARGE_INTEGER*)&end);
 		timeuse += (end - begin) * 1000.0 / freq;
 	}
-	cout << "n=" << N << " Static threads + semaphores :  " << timeuse / times << "ms" << endl;
+	cout << "n=" << N << " pthread2 :  " << timeuse / times << "ms" << endl;
 
 	return 0;
 }
