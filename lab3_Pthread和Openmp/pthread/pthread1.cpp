@@ -86,15 +86,15 @@ void Thread_Main() {
 }
 int main() {
 	long long begin, end, freq;
-	double timeuse1 = 0, timeuse2 = 0;
+	double timeuse = 0;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
 	for (int i = 0;i < times;i++) {
 		m_reset();
 		QueryPerformanceCounter((LARGE_INTEGER*)&begin);
 		Thread_Main();
 		QueryPerformanceCounter((LARGE_INTEGER*)&end);
-		timeuse1+= (end - begin) * 1000.0 / freq;
+		timeuse+= (end - begin) * 1000.0 / freq;
 	}
-	cout << "n=" << N << " Dynamic threads:  " << timeuse1 / times << "ms" << endl;
+	cout << "n=" << N << " Dynamic threads:  " << timeuse / times << "ms" << endl;
 	return 0;
 }
