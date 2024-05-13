@@ -49,8 +49,10 @@ void* Thread_Func_Col(void* param) {
 	int k = p->k;
 	int t_id = p->t_id;
 	//获取自己的计算任务
-	for (int j = k + 1 + t_id;j < N;j += thread_num) {
-		for (int i = k + 1;i < N;i++) {
+	for (int i = k + 1; i < N; i++)
+	{
+		for (int j = k + 1 + t_id; j < N; j += thread_num)
+		{
 			m[i][j] -= (m[i][k] * m[k][j]);
 		}
 	}
