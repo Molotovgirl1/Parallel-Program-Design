@@ -6,7 +6,7 @@ using namespace std;
 const int N = 512;
 float m[N][N];
 int thread_num = 6;
-const int times = 10;
+const int times = 100;
 //线程参数结构体
 struct Thread_Param
 {
