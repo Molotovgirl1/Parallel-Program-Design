@@ -4,7 +4,7 @@
 using namespace std;
 const int N = 512;
 float m[N][N];
-const int NUM_THREADS = 1;
+const int NUM_THREADS = 6;
 const int times = 10;
 //输出数组
 void print()
@@ -67,7 +67,7 @@ void Openmp_Col() {
 			}
 			m[k][k] = 1.0;
 		}
-		//消去部分，使用划分
+		//消去部分，使用列划分
 #pragma omp for
 		for (j = k + 1;j < N;j++) {
 			tmp = m[k][j];
@@ -83,7 +83,6 @@ void Openmp_Col() {
 			}
 		}
 	}
-
 }
 int main() {
 	long long begin, end, freq;
