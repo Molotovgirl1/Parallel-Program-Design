@@ -3,10 +3,10 @@
 #include<Windows.h>
 #pragma comment(lib, "pthreadVC2.lib")
 using namespace std;
-const int N = 512;
+const int N = 2048;
 float m[N][N];
 int thread_num = 6;
-const int times = 100;
+const int times = 10;
 //线程参数结构体
 struct Thread_Param
 {
@@ -41,6 +41,21 @@ void print()
 			cout << m[i][j] << " ";
 		}
 		cout << endl;
+	}
+}
+//普通高斯消元算法
+void serial_LU() {
+	for (int k = 0;k < N;k++) {
+		for (int j = k + 1;j < N;j++) {
+			m[k][j] /= m[k][k];
+		}
+		m[k][k] = 1.0;
+		for (int i = k + 1;i < N;i++) {
+			for (int j = k + 1;j < N;j++) {
+				m[i][j] -= m[k][j] * m[i][k];
+			}
+			m[i][k] = 0;
+		}
 	}
 }
 void *Thread_Func(void *param) {
@@ -86,15 +101,23 @@ void Thread_Main() {
 }
 int main() {
 	long long begin, end, freq;
-	double timeuse = 0;
+	double timeuse1 = 0, timeuse2 = 0;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
+	for (int i = 0;i < times;i++) {
+		m_reset();
+		QueryPerformanceCounter((LARGE_INTEGER*)&begin);
+		serial_LU();
+		QueryPerformanceCounter((LARGE_INTEGER*)&end);
+		timeuse1 += (end - begin) * 1000.0 / freq;
+	}
+	cout << "n=" << N << " Serial:  " << timeuse1 / times << "ms" << endl;
 	for (int i = 0;i < times;i++) {
 		m_reset();
 		QueryPerformanceCounter((LARGE_INTEGER*)&begin);
 		Thread_Main();
 		QueryPerformanceCounter((LARGE_INTEGER*)&end);
-		timeuse+= (end - begin) * 1000.0 / freq;
+		timeuse2+= (end - begin) * 1000.0 / freq;
 	}
-	cout << "n=" << N << " pthread1:  " << timeuse / times << "ms" << endl;
+	cout << "n=" << N << " Dynamic threads:  " << timeuse2 / times << "ms" << endl;
 	return 0;
 }
