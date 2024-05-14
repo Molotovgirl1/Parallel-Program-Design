@@ -2,7 +2,7 @@
 #include<Windows.h>
 #include<omp.h>
 using namespace std;
-const int N = 512;
+const int N = 2048;
 float m[N][N];
 const int NUM_THREADS = 6;
 const int times = 10;
@@ -54,9 +54,9 @@ void serial_LU() {
 }
 void Openmp_Row() {
 	int i, j, k;
-	int tmp;
+	float tmp;
 	//创建线程
-#pragma omp parallel num_thread(NUM_THREADS),private(i,j,j,tmp)
+#pragma omp parallel num_threads(NUM_THREADS),private(i,j,k,tmp)
 	for (k = 0;k < N;k++) {
 		//除法部分，一个线程执行
 #pragma omp single 
