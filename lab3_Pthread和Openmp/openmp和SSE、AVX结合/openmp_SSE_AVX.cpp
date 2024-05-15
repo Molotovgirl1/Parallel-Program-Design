@@ -4,10 +4,10 @@
 #include<nmmintrin.h> //SSSE4.2
 #include<immintrin.h> //AVX¡¢AVX
 using namespace std;
-const int N = 64;
+const int N = 512;
 float m[N][N];
 const int NUM_THREADS = 6;
-const int times = 100;
+const int times = 10;
 //Êä³öÊý×é
 void print()
 {
