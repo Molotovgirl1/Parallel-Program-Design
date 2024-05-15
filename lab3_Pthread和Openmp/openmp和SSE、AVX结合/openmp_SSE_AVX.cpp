@@ -115,7 +115,6 @@ int main() {
 	long long begin, end, freq;
 	double timeuse1 = 0, timeuse2 = 0;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
-	//普通高斯消元计时
 	for (int i = 0;i < times;i++) {
 		m_reset();
 		QueryPerformanceCounter((LARGE_INTEGER*)&begin);
@@ -125,7 +124,6 @@ int main() {
 		timeuse1 += (end - begin) * 1000.0 / freq;
 	}
 	cout << "n=" << N << " OpenMP_SSE:  " << timeuse1 / times << "ms" << endl;
-	//OpenMP按行划分计时
 	for (int i = 0;i < times;i++) {
 		m_reset();
 		QueryPerformanceCounter((LARGE_INTEGER*)&begin);
