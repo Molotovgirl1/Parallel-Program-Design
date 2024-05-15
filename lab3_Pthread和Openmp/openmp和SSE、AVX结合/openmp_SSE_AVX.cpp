@@ -4,10 +4,10 @@
 #include<nmmintrin.h> //SSSE4.2
 #include<immintrin.h> //AVX¡¢AVX
 using namespace std;
-const int N = 512;
+const int N = 64;
 float m[N][N];
 const int NUM_THREADS = 6;
-const int times = 10;
+const int times = 100;
 //Êä³öÊý×é
 void print()
 {
@@ -123,7 +123,7 @@ int main() {
 		QueryPerformanceCounter((LARGE_INTEGER*)&end);
 		timeuse1 += (end - begin) * 1000.0 / freq;
 	}
-	cout << "n=" << N << " OpenMP_SSE:  " << timeuse1 / times << "ms" << endl;
+	cout << "n=" << 101 << " OpenMP_SSE:  " << timeuse1 / times << "ms" << endl;
 	for (int i = 0;i < times;i++) {
 		m_reset();
 		QueryPerformanceCounter((LARGE_INTEGER*)&begin);
