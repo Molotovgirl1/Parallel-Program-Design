@@ -3,3 +3,4 @@
 + 实验二：SIMD编程
 + 实验三：pthread和Openmp编程
 + 实验四：MPI编程
++ 实验五：GPU编程
