@@ -262,9 +262,9 @@ int main() {
 	bool sign;
 	do
 	{
-		q_ct1.memcpy(g_E, E_flat, eNum ∗actual_colNum ∗ sizeof(unsigned int)).wait();
-	    q_ct1.memcpy(g_R, R_flat, R_lineNum ∗actual_colNum ∗ sizeof(unsugned int)).wait();
-		q_ct1.memcpy(g_First, First, eNum ∗ sizeof(int)).wait();
+		q_ct1.memcpy(g_E, E_flat, eNum *actual_colNum * sizeof(unsigned int)).wait();
+	    q_ct1.memcpy(g_R, R_flat, R_lineNum *actual_colNum * sizeof(unsugned int)).wait();
+		q_ct1.memcpy(g_First, First, eNum * sizeof(int)).wait();
 
 
 		//消元，不设置消元子
@@ -274,15 +274,15 @@ int main() {
 		    auto eNum_ct1 = eNum;
 		    auto RNum_ct2 = R_lineNum;
 
-			cgh.parallel_for(sycl::nd_range<3>(sycl:: range <3>(1, 1, 256) ∗ sycl::range <3>(1, 1, 32),sycl::range <3>(1, 1, 32)), [=](sycl::nd_item<3> item_ct1) {
+			cgh.parallel_for(sycl::nd_range<3>(sycl:: range <3>(1, 1, 256) * sycl::range <3>(1, 1, 32),sycl::range <3>(1, 1, 32)), [=](sycl::nd_item<3> item_ct1) {
 					 work(Num_ct0, eNum_ct1, RNum_ct2, g_R, g_E, g_First,item_ct1);
 				 });
 			 });
 		dev_ct1.queues_wait_and_throw();
 
-		q_ct1.memcpy( E_flat, g_E, eNum ∗actual_colNum ∗ sizeof(unsigned int)).wait();
-		q_ct1.memcpy(R_flat, g_R, R_lineNum ∗actual_colNum ∗ sizeof(unsugned int)).wait();
-		q_ct1.memcpy(First, g_First, eNum ∗ sizeof(int)).wait();
+		q_ct1.memcpy( E_flat, g_E, eNum *actual_colNum * sizeof(unsigned int)).wait();
+		q_ct1.memcpy(R_flat, g_R, R_lineNum *actual_colNum * sizeof(unsugned int)).wait();
+		q_ct1.memcpy(First, g_First, eNum * sizeof(int)).wait();
 
 		sign = false;
 		for (int i = 0; i < eNum; i++)

@@ -243,11 +243,11 @@ int main()
 
 
 	cudaError_t ret;
-	unsigned int ∗ g_R, ∗g_E,*g_First;
+	unsigned int * g_R, *g_E,*g_First;
 
-	ret = cudaMalloc(&g_E, eNum ∗actual_colNum ∗ sizeof(int));
-    ret = cudaMalloc(&g_R, R_lineNum ∗actual_colNum ∗ sizeof(int));
-	ret = cudaMalloc(&g_First,eNum ∗ sizeof(int));
+	ret = cudaMalloc(&g_E, eNum *actual_colNum * sizeof(int));
+    ret = cudaMalloc(&g_R, R_lineNum *actual_colNum * sizeof(int));
+	ret = cudaMalloc(&g_First,eNum * sizeof(int));
 
 	 if(ret != cudaSuccess) {
 		printf(" cudaMalloc gpudata failed !\n");
@@ -264,9 +264,9 @@ int main()
 	 bool sign;
 	 do
 	 {
-		 ret = cudaMemcpy(g_E, E_flat, eNum ∗actual_colNum ∗ sizeof(int), cudaMemcpyHostToDevice);
-		 ret = cudaMemcpy(g_R, R_flat, R_lineNum ∗actual_colNum ∗ sizeof(int), cudaMemcpyHostToDevice);
-		 ret = cudaMemcpy(g_First, First, eNum ∗ sizeof(int), cudaMemcpyHostToDevice);
+		 ret = cudaMemcpy(g_E, E_flat, eNum *actual_colNum * sizeof(int), cudaMemcpyHostToDevice);
+		 ret = cudaMemcpy(g_R, R_flat, R_lineNum *actual_colNum * sizeof(int), cudaMemcpyHostToDevice);
+		 ret = cudaMemcpy(g_First, First, eNum * sizeof(int), cudaMemcpyHostToDevice);
 		 if(ret != cudaSuccess) {
 			printf(" cudaMemcpyHostToDevice failed !\n");
 		 }
@@ -275,9 +275,9 @@ int main()
 		 work << < 1024, 10 >> > (actual_colNum, eNum, R_lineNum, g_R, g_E,g_First);
 		 cudaDeviceSynchronize();
 
-		 ret = cudaMemcpy(E_flat, g_E, eNum ∗actual_colNum ∗ sizeof(int),cudaMemcpyDeviceToHost);
-		 ret = cudaMemcpy(R_flat, g_R, R_lineNum ∗actual_colNum ∗ sizeof(int), cudaMemcpyDeviceToHost);
-		 ret = cudaMemcpy(First, g_First, eNum ∗ sizeof(int), cudaMemcpyDeviceToHost);
+		 ret = cudaMemcpy(E_flat, g_E, eNum *actual_colNum * sizeof(int),cudaMemcpyDeviceToHost);
+		 ret = cudaMemcpy(R_flat, g_R, R_lineNum *actual_colNum * sizeof(int), cudaMemcpyDeviceToHost);
+		 ret = cudaMemcpy(First, g_First, eNum * sizeof(int), cudaMemcpyDeviceToHost);
 		  if(ret != cudaSuccess) {
 			  printf(" cudaMemcpyDeviceToHost failed !\n");
 		  }
